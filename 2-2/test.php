@@ -11,7 +11,7 @@
         <li><a href="list.php">Список загруженных тестов</a></li>
     </ul>
     <?php
-    $file_list = glob(__DIR__ . '/*.json');
+    $file_list = glob(__DIR__ . '/uploads/*.json');
     $test = [];
     $result = '';
 

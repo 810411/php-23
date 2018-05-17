@@ -6,7 +6,7 @@
         <meta name="description" content="Нетология. Курс PHP/SQL. Урок 2.2">
     </head>
     <body>
-    <?php $file_list = glob(__DIR__ . '/*.json'); ?>
+    <?php $file_list = glob(__DIR__ . '/uploads/*.json'); ?>
     <ul>
         <li><a href="admin.php">Загрузчик тестов</a></li>
         <?php foreach ($file_list as $key => $file) : ?>

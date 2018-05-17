@@ -12,12 +12,16 @@
     <?php
     $info = '';
 
+    $uploads_dir = __DIR__ . '/uploads';
+    if (!file_exists($uploads_dir)) mkdir ($uploads_dir);
+
     if ($_FILES) {
-        $name = $_FILES['userfile']['name'];
+        $name = basename($_FILES['userfile']['name']);
+        $tmp_name = $_FILES['userfile']['tmp_name'];
         $path_info = pathinfo($name);
 
         if ($_FILES['userfile']['error'] == UPLOAD_ERR_OK && $_FILES['userfile']['type'] == 'text/plain' && $path_info['extension'] === 'json') {
-            move_uploaded_file($_FILES['userfile']['tmp_name'], $name);
+            move_uploaded_file($tmp_name, "$uploads_dir/$name");
             $info = "Файл загружен";
         } else {
             $info = "Ошибка загрузки файла";
