@@ -1,22 +1,22 @@
 <?php
-$file_list = glob(__DIR__ . '/uploads/*.json');
+$fileList = glob(__DIR__ . '/uploads/*.json');
 $test = [];
 $result = 0;
 $info = '';
 
-foreach ($file_list as $key => $file) {
+foreach ($fileList as $key => $file) {
     if ($key == @$_GET['test']) {
-        $test = json_decode(file_get_contents($file_list[$key]), true);
-        $test_name = pathinfo($file)['filename'];
+        $test = json_decode(file_get_contents($fileList[$key]), true);
+        $testName = pathinfo($file)['filename'];
     }
 }
 
 if (!isset($test[0]['q'])) {
     http_response_code(404);
     echo '404. Not Found <br>';
-    echo 'В файле ' . $test_name . ' тестов не найдено';
+    echo 'В файле ' . $testName . ' тестов не найдено';
     echo '<br><a href="list.php">Список загруженных тестов</a>';
-    exit(1);
+    exit(0);
 }
 
 foreach ($test as $key => $value) {
@@ -40,7 +40,7 @@ if (!empty($_POST)) {
         $texts[] = 'от ' . date("d-m-Y");
         $texts[] = 'удостоверяет, что';
         $texts[] = $_POST['user'];
-        $texts[] = 'прошел ' . $test_name;
+        $texts[] = 'прошел ' . $testName;
         $texts[] = 'ответив вопросов ' . $result . ' из ' . count($questions);
 
         $path = __DIR__ . '/images/sert.png';
@@ -61,6 +61,7 @@ if (!empty($_POST)) {
         header('Content-type: image/png');
         imagepng($img);
         imagedestroy($img);
+        exit(0);
 
     } else if (!empty($_POST)) {
         $info = $_POST['user'] . ', вы ответили неправильно';
@@ -79,7 +80,7 @@ if (!empty($_POST)) {
     <li><a href="admin.php">Загрузчик тестов</a></li>
     <li><a href="list.php">Список загруженных тестов</a></li>
 </ul>
-<h3><?= $test_name ?></h3>
+<h3><?= $testName ?></h3>
 <form action="" method="POST">
     <?php for ($i = 0; $i < count($questions); $i++) : ?>
         <fieldset>
@@ -92,7 +93,7 @@ if (!empty($_POST)) {
         </fieldset>
     <?php endfor; ?><br>
     <input type="text" name="user" placeholder="Введите ваше имя"><br><br>
-    <input type="hidden" name="title" value=<?= $test_name ?>>
+    <input type="hidden" name="title" value=<?= $testName ?>>
     <input type="hidden" name="result" value=<?= $result ?>>
     <input type="hidden" name="sum" value=<?= count($questions) ?>>
     <input type="submit" value="Отправить">

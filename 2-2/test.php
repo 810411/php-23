@@ -11,15 +11,15 @@
     <li><a href="list.php">Список загруженных тестов</a></li>
 </ul>
 <?php
-$file_list = glob(__DIR__ . '/uploads/*.json');
+$fileList = glob(__DIR__ . '/uploads/*.json');
 $test = [];
 $result = 0;
 $info = '';
 
-foreach ($file_list as $key => $file) {
+foreach ($fileList as $key => $file) {
     if ($key == @$_GET['test']) {
-        $test = json_decode(file_get_contents($file_list[$key]), true);
-        $test_name = pathinfo($file)['filename'];
+        $test = json_decode(file_get_contents($fileList[$key]), true);
+        $testName = pathinfo($file)['filename'];
     }
 }
 
@@ -48,7 +48,7 @@ if ($result > 0) {
     $info = 'Вы ответили неправильно';
 }
 ?>
-<h3><?= $test_name ?></h3>
+<h3><?= $testName ?></h3>
 <form action="" method="post">
     <?php for ($i = 0; $i < count($questions); $i++) : ?>
         <fieldset>
