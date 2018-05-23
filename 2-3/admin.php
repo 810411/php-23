@@ -9,13 +9,17 @@ if ($_FILES) {
     $tmpName = $_FILES['userfile']['tmp_name'];
     $pathInfo = pathinfo($name);
 
-    if ($_FILES['userfile']['error'] == UPLOAD_ERR_OK && $_FILES['userfile']['type'] == 'text/plain' && $pathInfo['extension'] === 'json') {
-        move_uploaded_file($tmpName, "$uploadsDir/$name");
-        header("Location: list.php");
-        exit(0);
-        //$info = "Файл загружен";
-    } else {
-        $info = "Ошибка загрузки файла";
+    if ($_FILES['userfile']['error'] == UPLOAD_ERR_OK) {
+        json_decode(file_get_contents($tmpName));
+
+        if (json_last_error() == 0) {
+            if (move_uploaded_file($tmpName, "$uploadsDir/$name")) {
+                header("Location: list.php");
+                exit(0);
+            }
+        } else {
+            $info = "Ошибка загрузки файла";
+        }
     }
 }
 ?>
