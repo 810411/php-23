@@ -12,7 +12,7 @@
 // несвязаных классах.
 
 //3, 4.
-class Goods //parent
+class Goods
 {
     public $color;
     public $price;
