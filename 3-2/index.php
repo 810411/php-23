@@ -12,9 +12,16 @@
 // несвязаных классах.
 
 //3, 4.
-class Goods //parent
+abstract class Goods //parent
 {
-    public $color = 'black';
+    public $color;
+    public $price;
+
+    public function __construct($color, $price)
+    {
+        $this->color = $color;
+        $this->price = $price;
+    }
 }
 
 interface ChangeColor
@@ -24,7 +31,10 @@ interface ChangeColor
 
 class Car extends Goods implements ChangeColor
 {
-    public $price = '10000';
+    public function __construct()
+    {
+        parent::__construct('white', '100000');
+    }
 
     public function changeColor($color)
     {
@@ -43,29 +53,21 @@ echo '<br>';
 var_dump($car2);
 echo '<br>';
 
-class Tv extends Goods implements ChangeColor
+class Tv extends Goods
 {
     public $model;
     public $diagonal;
-    public $price;
 
-    public function __construct($model, $diagonal, $price)
+    public function __construct($color, $price, $model, $diagonal)
     {
+        parent::__construct($color, $price);
         $this->model = $model;
         $this->diagonal = $diagonal;
-        $this->price = $price;
     }
-
-    public function changeColor($color)
-    {
-        $this->color = $color;
-    }
-
 }
 
-$lg = new Tv('LG', '32', '200');
-$lg->changeColor('silver');
-$samsung = new Tv('Samsung', '40', '250');
+$lg = new Tv('silver', 1500,'LG', 32);
+$samsung = new Tv('black', 2000, 'Samsung', 40);
 
 var_dump($lg);
 echo '<br>';
@@ -93,7 +95,7 @@ $waterman = new Pen('Waterman');
 $parker->changeColor('blue');
 
 echo $parker->brand . ' is ' . $parker->color;
-echo '<br><br>';
+echo '<br><hr>';
 
 
 //Extra
@@ -116,18 +118,12 @@ class Products
         $this->weight = $weight;
         echo "Product:  $this->title";
     }
-}
 
-trait getProductPrice
-{
     public function getPrice()
     {
         echo "<br>Price: {$this->price}";
     }
-}
 
-trait getProductDiscount
-{
     public function getDiscountPrice()
     {
         $this->discount = 10;
@@ -166,7 +162,7 @@ trait getDelivery
 
 class Pens extends Products
 {
-    use getProductDiscount, getDelivery;
+    use getDelivery;
 }
 
 $pen = new Pens("Parker", "Pens", 1000, 0.1);
@@ -175,7 +171,7 @@ echo $pen->getDeliveryPrice() . "<br><hr>";
 
 class Phones extends Products
 {
-    use getProductPrice, getDelivery;
+    use getDelivery;
 }
 
 $phone = new Phones("iPhone", "Phones", 3000, 0.2);
@@ -184,7 +180,7 @@ echo $phone->getDeliveryPrice() . "<br><hr>";
 
 class Appliances extends Products
 {
-    use getProductDiscount, getDelivery, getWeightDiscount;
+    use getDelivery, getWeightDiscount;
 }
 
 $tv = new Appliances("Samsung", "Tv", 2000, 15);
