@@ -30,9 +30,11 @@ else {
 }
 
 ?>
-
+<!doctype html>
+<html lang="ru">
 <html>
-<header>
+<head>
+    <meta charset="utf-8"/>
     <title>Домашнее задание к лекции 4.1 «Реляционные базы данных и SQL»</title>
     <style>
         table {
@@ -47,7 +49,7 @@ else {
             background: #eee;
         }
     </style>
-</header>
+</head>
 <body>
 <h1>Библиотека успешного человека</h1>
 <form method="GET">
