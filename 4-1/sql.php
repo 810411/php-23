@@ -1,10 +1,10 @@
 <?php
-
 try {
     //$pdo = new PDO("mysql:host=localhost;dbname=global;charset=UTF8","********","********");
     $pdo = new PDO("mysql:host=127.0.0.1:3306;dbname=global;charset=UTF8","mysql","mysql");
 } catch (PDOException $e) {
     echo 'Connection failed: ' . $e->getMessage();
+    exit;
 }
 
 $isbn="";
