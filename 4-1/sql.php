@@ -58,6 +58,7 @@ else {
     <input type="text" name="author" placeholder="Автор книги" value="<?php echo $author; ?>">
     <input type="submit" value="Поиск">
 </form>
+<br>
 <table>
     <thead>
     <th>Название</th>
