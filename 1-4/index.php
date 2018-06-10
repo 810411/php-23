@@ -4,7 +4,6 @@ $mode = 'json';
 $units = 'metric';
 $lang = 'ru';
 $appid = 'e3fb0b77258f9a1408fdc64e00ae3f93';
-$title = 'Погода в городе Уфа';
 
 $url = "http://api.openweathermap.org/data/2.5/weather?q=$city,RU&mode=$mode&units=$units&lang=$lang&appid=$appid";
 
