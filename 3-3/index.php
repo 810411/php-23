@@ -13,9 +13,8 @@
 // 3 .. 6 & Extra.
 
 spl_autoload_register(
-    function($className) {
-        $path = rtrim(__DIR__, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR;
-        $fullPath = $path . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
+    function ($className) {
+        $fullPath = 'assets' . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
         if (file_exists($fullPath)) {
             require $fullPath;
         }
